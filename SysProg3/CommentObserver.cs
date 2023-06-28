@@ -21,7 +21,7 @@ public class CommentObserver : IObserver<CommentsData>
 
     public void OnNext(CommentsData commentsData)
     {
-        Console.WriteLine("OnNext: " + Thread.CurrentThread.ManagedThreadId);
+        //Console.WriteLine("OnNext: " + Thread.CurrentThread.ManagedThreadId);
         CommentsData.Add(commentsData);
         Counter.Signal();
     }

@@ -77,7 +77,7 @@ internal class Server
             .Where(commentsData => commentsData.Key == clientKey)
             .Select(commentsData =>
             {
-                Console.WriteLine("Select: " + Thread.CurrentThread.ManagedThreadId);
+                //Console.WriteLine("Select: " + Thread.CurrentThread.ManagedThreadId);
                 List<string> classifiedComments = new List<string>();
                 for (int i = 0; i < commentsData.Comments.Count; i++)
                 {
@@ -89,11 +89,11 @@ internal class Server
                 classifiedData.Comments = classifiedComments;
                 return classifiedData;
             })
-            .SubscribeOn(NewThreadScheduler.Default)
-            .ObserveOn(NewThreadScheduler.Default)
+            .SubscribeOn(Scheduler.Default)
+            .ObserveOn(Scheduler.Default)
             .Subscribe(clientObserver);
             
-        CommentStream.FetchCommentsAsync(clientKey, videoIDs);
+        CommentStream.FetchComments(clientKey, videoIDs);
 
         counter.Wait();
 

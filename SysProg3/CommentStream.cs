@@ -48,16 +48,13 @@ public class CommentStream : IObservable<CommentsData>
         });
     }
 
-    public async Task FetchCommentsAsync(string clientKey, List<string> videoIDs)
+    public void FetchComments(string clientKey, List<string> videoIDs)
     {
-
-        List<Task> tasks = new List<Task>();
-
         foreach (var videoID in videoIDs)
         {
             _ = Task.Run(async () =>
             {
-                Console.WriteLine("Processing: " + Thread.CurrentThread.ManagedThreadId);
+                //Console.WriteLine("Processing: " + Thread.CurrentThread.ManagedThreadId);
                 CommentsData commentsData = new CommentsData();
                 commentsData.Key = clientKey;
 
@@ -127,7 +124,7 @@ public class CommentStream : IObservable<CommentsData>
 
     public IDisposable Subscribe(IObserver<CommentsData> observer)
     {
-        Console.WriteLine("Subscribe: " + Thread.CurrentThread.ManagedThreadId);
+        //Console.WriteLine("Subscribe: " + Thread.CurrentThread.ManagedThreadId);
         return CommentSubject.Subscribe(observer);
     }
 }
